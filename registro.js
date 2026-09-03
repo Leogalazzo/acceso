@@ -88,20 +88,12 @@ document.addEventListener('DOMContentLoaded', () => {
     // IMPORTANTE: Reemplazá esto con la URL que te da Google Apps Script al implementar
     const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwGLTRGPpfXhvs5vFEMPiEYD3Ic5RFTNZ26tmktfm200EBGvEcRtJRMNTIOQ_wIG3WB/exec';
 
-    // Envía los datos. Usamos sendBeacon primero porque el navegador se encarga
-    // de entregarlo en segundo plano sin depender de que la conexión siga abierta
-    // (en Apps Script con no-cors nunca podemos leer la respuesta igual, así que
-    // no perdemos nada). Si sendBeacon no está disponible o no puede encolarlo,
-    // caemos a fetch como respaldo.
+    // Envía los datos a Google Apps Script. Usamos fetch con no-cors (igual que
+    // en sumatucomercio.js) en vez de sendBeacon: Apps Script responde con un
+    // redirect antes de ejecutar el doPost, y sendBeacon no siempre lo sigue
+    // bien, por lo que puede "encolar" el envío sin que el dato llegue nunca
+    // al Sheet. fetch maneja ese redirect de forma transparente.
     async function enviarDatos(datos) {
-        const payload = JSON.stringify(datos);
-
-        if (navigator.sendBeacon) {
-            const blob = new Blob([payload], { type: 'text/plain;charset=utf-8' });
-            const encolado = navigator.sendBeacon(APPS_SCRIPT_URL, blob);
-            if (encolado) return true;
-        }
-
         try {
             await fetch(APPS_SCRIPT_URL, {
                 method: 'POST',
@@ -109,7 +101,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 headers: {
                     'Content-Type': 'text/plain;charset=utf-8'
                 },
-                body: payload
+                body: JSON.stringify(datos)
             });
             return true;
         } catch (error) {
