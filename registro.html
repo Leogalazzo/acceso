@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <title>Solicitud de acceso</title>
+    <!-- Mantenemos tus estilos y fuentes originales -->
+    <link rel="shortcut icon" href="foco-nuevo-rem.png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .bg-yellow-comunidad { background-color: #FBBF24; }
+        .text-yellow-comunidad { color: #FBBF24; }
+        .accent-yellow-comunidad { accent-color: #FBBF24; }
+
+        input[type="text"]:focus, input[type="tel"]:focus, textarea:focus {
+            box-shadow: 0 0 0 3px rgba(251, 191, 36, 0.3);
+            border-color: #FBBF24 !important;
+        }
+        .bg-main { background: radial-gradient(circle at top right, #8a5c14, #5c320c 55%, #261004); }
+
+        @media screen and (max-width: 768px) {
+            input, textarea, select { font-size: 16px !important; }
+        }
+
+        /* Wizard: cada paso ocupa el mismo lugar para animar la transición */
+        .step-panel { display: none; }
+        .step-panel.active { display: block; animation: step-in .25s ease-out; }
+        @keyframes step-in {
+            from { opacity: 0; transform: transtoneX(8px); }
+            to { opacity: 1; transform: transtoneX(0); }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            .step-panel.active { animation: none; }
+        }
+
+        .option-pill { transition: border-color .15s ease, background-color .15s ease; }
+        .option-group .option-pill { min-height: 3.1rem; }
+        .option-group .option-pill span { line-height: 1.2; }
+    </style>
+</head>
+<body class="min-h-screen bg-main flex items-center justify-center p-3 sm:p-4 md:p-8">
+
+    <div class="w-full max-w-xl my-auto">
+        <div class="bg-stone-900/40 backdrop-blur-2xl rounded-3xl sm:rounded-[2.5rem] shadow-2xl shadow-black/20 overflow-hidden border border-white/15">
+
+            <div class="p-6 sm:p-8 md:p-9 text-center relative overflow-hidden border-b border-white/10">
+                <div class="absolute top-0 right-0 w-32 h-32 bg-yellow-comunidad rounded-full blur-[70px] opacity-20 -mr-16 -mt-16"></div>
+
+                <img src="foco-nuevo-rem.png" alt="Logo" class="w-12 h-12 mx-auto mb-4 drop-shadow-[0_0_15px_rgba(251,191,36,0.5)]">
+
+                <h1 class="text-xl sm:text-2xl md:text-3xl font-black uppercase tracking-tighter text-white leading-tight">
+                    COMUNIDAD <span class="text-yellow-comunidad">EMPRENDEDORA</span>
+                </h1>
+                <p class="text-white/50 text-[10px] md:text-xs mt-2 font-bold uppercase tracking-widest">
+                    Solicitud de acceso
+                </p>
+            </div>
+
+            <!-- Progreso -->
+            <div class="px-5 sm:px-6 md:px-8 pt-5">
+                <div class="flex items-center justify-between mb-2">
+                    <span id="progress-label" class="text-white/60 text-[10px] font-bold uppercase tracking-widest">Paso 1 de 3</span>
+                    <span id="progress-title" class="text-yellow-comunidad text-[10px] font-bold uppercase tracking-widest">Datos básicos</span>
+                </div>
+                <div class="flex gap-1.5">
+                    <div class="step-dot h-1.5 flex-1 rounded-full bg-yellow-comunidad transition-colors" data-dot="1"></div>
+                    <div class="step-dot h-1.5 flex-1 rounded-full bg-white/15 transition-colors" data-dot="2"></div>
+                    <div class="step-dot h-1.5 flex-1 rounded-full bg-white/15 transition-colors" data-dot="3"></div>
+                </div>
+            </div>
+
+            <form id="form-comunidad" class="p-5 sm:p-6 md:p-8 pt-5">
+
+                <!-- ===================== PASO 1: Datos básicos ===================== -->
+                <div class="step-panel active" data-step="1">
+                    <div class="space-y-4">
+                        <div class="space-y-1.5">
+                            <label class="text-[10px] md:text-xs font-black uppercase text-white ml-1 tracking-wider">Nombre del emprendimiento</label>
+                            <input type="text" name="nombreEmprendimiento" required placeholder="Mi emprendimiento"
+                                class="w-full p-3.5 bg-white/10 backdrop-blur-sm rounded-xl border border-white/15 outline-none text-sm text-white placeholder:text-white/30 transition-all focus:bg-white/15">
+                        </div>
+                        <div class="grid sm:grid-cols-2 gap-4">
+                            <div class="space-y-1.5">
+                                <label class="text-[10px] md:text-xs font-black uppercase text-white ml-1 tracking-wider">Nombre del responsable</label>
+                                <input type="text" name="nombreResponsable" required placeholder="Tu nombre"
+                                    class="w-full p-3.5 bg-white/10 backdrop-blur-sm rounded-xl border border-white/15 outline-none text-sm text-white placeholder:text-white/30 transition-all focus:bg-white/15">
+                            </div>
+                            <div class="space-y-1.5">
+                                <label class="text-[10px] md:text-xs font-black uppercase text-white ml-1 tracking-wider">Contacto</label>
+                                <input type="tel" name="whatsapp" required placeholder="Ej: 3735..."
+                                    class="w-full p-3.5 bg-white/10 backdrop-blur-sm rounded-xl border border-white/15 outline-none text-sm text-white placeholder:text-white/30 transition-all focus:bg-white/15">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ===================== PASO 2: Redes sociales ===================== -->
+                <div class="step-panel" data-step="2">
+                    <div class="space-y-6">
+
+                        <div class="space-y-3">
+                            <label class="text-sm font-bold text-white leading-tight block">¿Tenés conocimiento sobre el uso de redes sociales?</label>
+                            <div class="option-group grid grid-cols-2 gap-2">
+                                <label class="option-pill flex items-start gap-2.5 cursor-pointer p-3 bg-white/10 backdrop-blur-sm rounded-xl border border-white/15">
+                                    <input type="radio" name="conocimientoRedes" value="Sí, tengo bastante experiencia." required class="accent-yellow-comunidad w-4 h-4 flex-shrink-0 mt-0.5">
+                                    <span class="text-white/80 text-xs sm:text-sm">Bastante experiencia</span>
+                                </label>
+                                <label class="option-pill flex items-start gap-2.5 cursor-pointer p-3 bg-white/10 backdrop-blur-sm rounded-xl border border-white/15">
+                                    <input type="radio" name="conocimientoRedes" value="Sí, pero manejo lo básico." class="accent-yellow-comunidad w-4 h-4 flex-shrink-0 mt-0.5">
+                                    <span class="text-white/80 text-xs sm:text-sm">Manejo lo básico</span>
+                                </label>
+                                <label class="option-pill flex items-start gap-2.5 cursor-pointer p-3 bg-white/10 backdrop-blur-sm rounded-xl border border-white/15">
+                                    <input type="radio" name="conocimientoRedes" value="Tengo muy poco conocimiento." class="accent-yellow-comunidad w-4 h-4 flex-shrink-0 mt-0.5">
+                                    <span class="text-white/80 text-xs sm:text-sm">Poco conocimiento</span>
+                                </label>
+                                <label class="option-pill flex items-start gap-2.5 cursor-pointer p-3 bg-white/10 backdrop-blur-sm rounded-xl border border-white/15">
+                                    <input type="radio" name="conocimientoRedes" value="No tengo experiencia." class="accent-yellow-comunidad w-4 h-4 flex-shrink-0 mt-0.5">
+                                    <span class="text-white/80 text-xs sm:text-sm">Sin experiencia</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="space-y-3">
+                            <label class="text-sm font-bold text-white leading-tight block">¿Qué redes sociales utilizás actualmente para tu emprendimiento?</label>
+                            <div class="option-group grid grid-cols-2 gap-2">
+                                <label class="option-pill flex items-start gap-2.5 cursor-pointer p-3 bg-white/10 backdrop-blur-sm rounded-xl border border-white/15">
+                                    <input type="checkbox" name="redes" value="Instagram" class="accent-yellow-comunidad w-4 h-4 rounded flex-shrink-0 mt-0.5">
+                                    <span class="text-white/80 text-xs sm:text-sm">Instagram</span>
+                                </label>
+                                <label class="option-pill flex items-start gap-2.5 cursor-pointer p-3 bg-white/10 backdrop-blur-sm rounded-xl border border-white/15">
+                                    <input type="checkbox" name="redes" value="Facebook" class="accent-yellow-comunidad w-4 h-4 rounded flex-shrink-0 mt-0.5">
+                                    <span class="text-white/80 text-xs sm:text-sm">Facebook</span>
+                                </label>
+                                <label class="option-pill flex items-start gap-2.5 cursor-pointer p-3 bg-white/10 backdrop-blur-sm rounded-xl border border-white/15">
+                                    <input type="checkbox" name="redes" value="WhatsApp" class="accent-yellow-comunidad w-4 h-4 rounded flex-shrink-0 mt-0.5">
+                                    <span class="text-white/80 text-xs sm:text-sm">WhatsApp</span>
+                                </label>
+                                <label class="option-pill flex items-start gap-2.5 cursor-pointer p-3 bg-white/10 backdrop-blur-sm rounded-xl border border-white/15">
+                                    <input type="checkbox" name="redes" value="TikTok" class="accent-yellow-comunidad w-4 h-4 rounded flex-shrink-0 mt-0.5">
+                                    <span class="text-white/80 text-xs sm:text-sm">TikTok</span>
+                                </label>
+                                <label class="option-pill flex items-start gap-2.5 cursor-pointer p-3 bg-white/10 backdrop-blur-sm rounded-xl border border-white/15">
+                                    <input type="checkbox" name="redes" value="Ninguna" class="accent-yellow-comunidad w-4 h-4 rounded flex-shrink-0 mt-0.5">
+                                    <span class="text-white/80 text-xs sm:text-sm">Ninguna</span>
+                                </label>
+                                <label class="option-pill flex items-start gap-2.5 cursor-pointer p-3 bg-white/10 backdrop-blur-sm rounded-xl border border-white/15">
+                                    <input type="checkbox" name="redes" value="Otra" class="accent-yellow-comunidad w-4 h-4 rounded flex-shrink-0 mt-0.5">
+                                    <span class="text-white/80 text-xs sm:text-sm">Otra</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="space-y-3">
+                            <label class="text-sm font-bold text-white leading-tight block">¿Cómo manejás actualmente las redes de tu emprendimiento?</label>
+                            <div class="option-group grid grid-cols-2 gap-2">
+                                <label class="option-pill flex items-start gap-2.5 cursor-pointer p-3 bg-white/10 backdrop-blur-sm rounded-xl border border-white/15">
+                                    <input type="radio" name="manejoRedes" value="Las manejo personalmente." required class="accent-yellow-comunidad w-4 h-4 flex-shrink-0 mt-0.5">
+                                    <span class="text-white/80 text-xs sm:text-sm">Yo las manejo</span>
+                                </label>
+                                <label class="option-pill flex items-start gap-2.5 cursor-pointer p-3 bg-white/10 backdrop-blur-sm rounded-xl border border-white/15">
+                                    <input type="radio" name="manejoRedes" value="Me ayuda otra persona." class="accent-yellow-comunidad w-4 h-4 flex-shrink-0 mt-0.5">
+                                    <span class="text-white/80 text-xs sm:text-sm">Me ayuda alguien</span>
+                                </label>
+                                <label class="option-pill flex items-start gap-2.5 cursor-pointer p-3 bg-white/10 backdrop-blur-sm rounded-xl border border-white/15">
+                                    <input type="radio" name="manejoRedes" value="Las manejamos entre varias personas." class="accent-yellow-comunidad w-4 h-4 flex-shrink-0 mt-0.5">
+                                    <span class="text-white/80 text-xs sm:text-sm">Entre varias personas</span>
+                                </label>
+                                <label class="option-pill flex items-start gap-2.5 cursor-pointer p-3 bg-white/10 backdrop-blur-sm rounded-xl border border-white/15">
+                                    <input type="radio" name="manejoRedes" value="No utilizo redes actualmente." class="accent-yellow-comunidad w-4 h-4 flex-shrink-0 mt-0.5">
+                                    <span class="text-white/80 text-xs sm:text-sm">No las uso</span>
+                                </label>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- ===================== PASO 3: Herramientas y dispositivo ===================== -->
+                <div class="step-panel" data-step="3">
+                    <div class="space-y-6">
+
+                        <div class="space-y-3">
+                            <label class="text-sm font-bold text-white leading-tight block">¿Qué tan cómodo/a te sentís aprendiendo a utilizar nuevas herramientas desde el celular?</label>
+                            <div class="option-group grid grid-cols-2 gap-2">
+                                <label class="option-pill flex items-start gap-2.5 cursor-pointer p-3 bg-white/10 backdrop-blur-sm rounded-xl border border-white/15">
+                                    <input type="radio" name="comodidad" value="Muy cómodo/a, aprendo rápido." required class="accent-yellow-comunidad w-4 h-4 flex-shrink-0 mt-0.5">
+                                    <span class="text-white/80 text-xs sm:text-sm">Aprendo rápido</span>
+                                </label>
+                                <label class="option-pill flex items-start gap-2.5 cursor-pointer p-3 bg-white/10 backdrop-blur-sm rounded-xl border border-white/15">
+                                    <input type="radio" name="comodidad" value="Me manejo bastante bien." class="accent-yellow-comunidad w-4 h-4 flex-shrink-0 mt-0.5">
+                                    <span class="text-white/80 text-xs sm:text-sm">Me manejo bien</span>
+                                </label>
+                                <label class="option-pill flex items-start gap-2.5 cursor-pointer p-3 bg-white/10 backdrop-blur-sm rounded-xl border border-white/15">
+                                    <input type="radio" name="comodidad" value="Necesito que me expliquen paso a paso." class="accent-yellow-comunidad w-4 h-4 flex-shrink-0 mt-0.5">
+                                    <span class="text-white/80 text-xs sm:text-sm">Necesito guía paso a paso</span>
+                                </label>
+                                <label class="option-pill flex items-start gap-2.5 cursor-pointer p-3 bg-white/10 backdrop-blur-sm rounded-xl border border-white/15">
+                                    <input type="radio" name="comodidad" value="Me cuesta bastante utilizar herramientas nuevas." class="accent-yellow-comunidad w-4 h-4 flex-shrink-0 mt-0.5">
+                                    <span class="text-white/80 text-xs sm:text-sm">Me cuesta bastante</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="space-y-3">
+                            <label class="text-sm font-bold text-white leading-tight block">¿Tenés experiencia utilizando páginas web o administradores para cargar productos/imágenes?</label>
+                            <div class="option-group grid grid-cols-2 gap-2">
+                                <label class="option-pill flex items-start gap-2.5 cursor-pointer p-3 bg-white/10 backdrop-blur-sm rounded-xl border border-white/15 col-span-2">
+                                    <input type="radio" name="experienciaWeb" value="Sí, tengo experiencia." required class="accent-yellow-comunidad w-4 h-4 flex-shrink-0 mt-0.5">
+                                    <span class="text-white/80 text-xs sm:text-sm">Sí, tengo experiencia.</span>
+                                </label>
+                                <label class="option-pill flex items-start gap-2.5 cursor-pointer p-3 bg-white/10 backdrop-blur-sm rounded-xl border border-white/15">
+                                    <input type="radio" name="experienciaWeb" value="Algo, pero necesito aprender." class="accent-yellow-comunidad w-4 h-4 flex-shrink-0 mt-0.5">
+                                    <span class="text-white/80 text-xs sm:text-sm">Algo, necesito aprender</span>
+                                </label>
+                                <label class="option-pill flex items-start gap-2.5 cursor-pointer p-3 bg-white/10 backdrop-blur-sm rounded-xl border border-white/15">
+                                    <input type="radio" name="experienciaWeb" value="No, nunca utilicé uno." class="accent-yellow-comunidad w-4 h-4 flex-shrink-0 mt-0.5">
+                                    <span class="text-white/80 text-xs sm:text-sm">Nunca utilicé uno</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="space-y-3">
+                            <label class="text-sm font-bold text-white leading-tight block">¿Qué dispositivo utilizás principalmente para manejar tu emprendimiento?</label>
+                            <div class="option-group grid grid-cols-3 gap-2">
+                                <label class="option-pill flex flex-col items-center justify-center gap-1.5 text-center cursor-pointer p-3 bg-white/10 backdrop-blur-sm rounded-xl border border-white/15">
+                                    <input type="radio" name="dispositivo" value="Celular" required class="accent-yellow-comunidad w-4 h-4">
+                                    <svg class="option-icon w-5 h-5 text-white/50 transition-colors" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                        <rect x="7" y="2" width="10" height="20" rx="2"></rect>
+                                        <line x1="11" y1="18" x2="13" y2="18"></line>
+                                    </svg>
+                                    <span class="text-white/80 text-xs sm:text-sm whitespace-nowrap">Celular</span>
+                                </label>
+                                <label class="option-pill flex flex-col items-center justify-center gap-1.5 text-center cursor-pointer p-3 bg-white/10 backdrop-blur-sm rounded-xl border border-white/15">
+                                    <input type="radio" name="dispositivo" value="Computadora" class="accent-yellow-comunidad w-4 h-4">
+                                    <svg class="option-icon w-5 h-5 text-white/50 transition-colors" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                        <rect x="2" y="4" width="20" height="13" rx="2"></rect>
+                                        <line x1="8" y1="21" x2="16" y2="21"></line>
+                                        <line x1="12" y1="17" x2="12" y2="21"></line>
+                                    </svg>
+                                    <span class="text-white/80 text-xs sm:text-sm whitespace-nowrap">Compu</span>
+                                </label>
+                                <label class="option-pill flex flex-col items-center justify-center gap-1.5 text-center cursor-pointer p-3 bg-white/10 backdrop-blur-sm rounded-xl border border-white/15">
+                                    <input type="radio" name="dispositivo" value="Ambos" class="accent-yellow-comunidad w-4 h-4">
+                                    <svg class="option-icon w-5 h-5 text-white/50 transition-colors" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                        <rect x="1" y="4" width="15" height="10" rx="1.5"></rect>
+                                        <line x1="5.5" y1="17" x2="12.5" y2="17"></line>
+                                        <line x1="9" y1="14" x2="9" y2="17"></line>
+                                        <rect x="15" y="9" width="8" height="13" rx="1.5"></rect>
+                                        <line x1="18" y1="19" x2="20" y2="19"></line>
+                                    </svg>
+                                    <span class="text-white/80 text-xs sm:text-sm whitespace-nowrap">Ambos</span>
+                                </label>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- Navegación -->
+                <div class="flex items-center gap-3 mt-7">
+                    <button type="button" id="btn-back" class="hidden flex-1 bg-white/10 backdrop-blur-sm border border-white/15 text-white font-black py-4 rounded-xl uppercase text-xs tracking-widest active:scale-[0.98] hover:bg-white/20 transition-all">
+                        Atrás
+                    </button>
+                    <button type="button" id="btn-next" class="flex-1 bg-yellow-comunidad text-stone-900 font-black py-4 rounded-xl hover:bg-yellow-500 transition-all shadow-[0_10px_20px_-10px_rgba(251,191,36,0.3)] uppercase text-xs tracking-widest active:scale-[0.98]">
+                        Siguiente
+                    </button>
+                    <button type="submit" id="btn-submit" class="hidden flex-1 bg-yellow-comunidad text-stone-900 font-black py-4 rounded-xl hover:bg-yellow-500 transition-all shadow-[0_10px_20px_-10px_rgba(251,191,36,0.3)] uppercase text-xs tracking-widest active:scale-[0.98]">
+                        Enviar Solicitud
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modales de Carga y Éxito -->
+    <div id="loader" class="fixed inset-0 bg-black/70 backdrop-blur-md z-[100] hidden flex-col items-center justify-center text-white p-6">
+        <div class="w-12 h-12 border-4 border-yellow-comunidad border-t-transparent rounded-full animate-spin"></div>
+        <p class="font-black text-lg uppercase tracking-widest mt-4">Enviando</p>
+    </div>
+
+    <div id="modal-success" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-[200] hidden items-center justify-center p-4">
+        <div class="bg-stone-900/50 backdrop-blur-2xl rounded-[2.5rem] p-8 sm:p-10 text-center max-w-sm w-full shadow-2xl shadow-black/20 border border-white/15">
+            <div class="relative w-20 h-20 mx-auto mb-5">
+                <div class="absolute inset-0 bg-yellow-comunidad/25 rounded-full blur-xl"></div>
+                <div class="relative w-20 h-20 bg-yellow-comunidad/10 border border-yellow-comunidad/30 text-yellow-comunidad rounded-full flex items-center justify-center text-3xl">
+                    <i class="fas fa-check"></i>
+                </div>
+            </div>
+
+            <h2 class="text-xl font-black text-white uppercase mb-2">¡Solicitud enviada!</h2>
+            <p class="text-white/60 text-xs leading-relaxed mb-5">Recibimos tus datos correctamente y ya estamos revisando tu solicitud.</p>
+
+            <div class="flex items-start gap-3 bg-white/5 border border-white/10 rounded-2xl p-4 mb-8 text-left">
+                <div class="w-8 h-8 rounded-full bg-yellow-comunidad/10 text-yellow-comunidad flex items-center justify-center flex-shrink-0 text-sm">
+                    <i class="fab fa-whatsapp"></i>
+                </div>
+                <p class="text-white/70 text-xs leading-relaxed">Te vamos a escribir al <span class="text-white font-bold">contacto</span> que nos dejaste en el formulario para otorgarte tus credenciales de acceso.</p>
+            </div>
+
+            <button onclick="location.reload()" class="w-full bg-white text-stone-900 font-black py-4 rounded-xl uppercase text-xs tracking-widest">Aceptar</button>
+        </div>
+    </div>
+
+    <script src="registro.js"></script>
+</body>
+</html>
