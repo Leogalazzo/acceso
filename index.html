@@ -55,26 +55,54 @@
                     COMUNIDAD <span class="text-yellow-comunidad">EMPRENDEDORA</span>
                 </h1>
                 <p class="text-white/50 text-[10px] md:text-xs mt-2 font-bold uppercase tracking-widest">
-                    Solicitud de acceso a la tienda online
+                    Solicitud de acceso
                 </p>
             </div>
 
-            <!-- Progreso -->
-            <div class="px-5 sm:px-6 md:px-8 pt-5">
-                <div class="flex items-center justify-between mb-2">
-                    <span id="progress-label" class="text-white/60 text-[10px] font-bold uppercase tracking-widest">Paso 1 de 3</span>
-                    <span id="progress-title" class="text-yellow-comunidad text-[10px] font-bold uppercase tracking-widest">Datos básicos</span>
-                </div>
-                <div class="flex gap-1.5">
-                    <div class="step-dot h-1.5 flex-1 rounded-full bg-yellow-comunidad transition-colors" data-dot="1"></div>
-                    <div class="step-dot h-1.5 flex-1 rounded-full bg-white/15 transition-colors" data-dot="2"></div>
-                    <div class="step-dot h-1.5 flex-1 rounded-full bg-white/15 transition-colors" data-dot="3"></div>
+            <!-- ===================== SELECTOR INICIAL ===================== -->
+            <div id="selector-inicio" class="p-6 sm:p-8 md:p-9 text-center">
+                <p class="text-white/70 text-xs sm:text-sm font-bold uppercase tracking-widest mb-5">¿Cómo querés participar?</p>
+                <div class="grid grid-cols-1 gap-3">
+                    <button type="button" id="btn-solo-beneficios"
+                        class="w-full bg-yellow-comunidad text-stone-900 font-black py-4 rounded-xl hover:bg-yellow-500 transition-all shadow-[0_10px_20px_-10px_rgba(251,191,36,0.3)] uppercase text-xs tracking-widest active:scale-[0.98]">
+                        Solo Beneficios
+                    </button>
+                    <button type="button" id="btn-mercado-virtual"
+                        class="w-full bg-white/10 backdrop-blur-sm border border-white/15 text-white font-black py-4 rounded-xl uppercase text-xs tracking-widest active:scale-[0.98] hover:bg-white/20 transition-all">
+                        Mercado Virtual
+                    </button>
                 </div>
             </div>
 
-            <form id="form-comunidad" class="p-5 sm:p-6 md:p-8 pt-5">
+            <!-- ===================== WIZARD (oculto hasta elegir arriba) ===================== -->
+            <div id="wizard-body" class="hidden">
 
-                <!-- ===================== PASO 1: Datos básicos ===================== -->
+                <!-- Volver al selector -->
+                <div class="px-5 sm:px-6 md:px-8 pt-4">
+                    <button type="button" id="btn-volver-selector" class="flex items-center gap-1.5 text-white/50 hover:text-white/80 text-[10px] font-bold uppercase tracking-widest transition-colors">
+                        <i class="fas fa-arrow-left text-[10px]"></i> Cambiar opción
+                    </button>
+                </div>
+
+                <!-- Progreso -->
+                <div class="px-5 sm:px-6 md:px-8 pt-5">
+                    <div class="flex items-center justify-between mb-2">
+                        <span id="progress-label" class="text-white/60 text-[10px] font-bold uppercase tracking-widest">Paso 1 de 3</span>
+                        <span id="progress-title" class="text-yellow-comunidad text-[10px] font-bold uppercase tracking-widest">Datos básicos</span>
+                    </div>
+                    <div class="flex gap-1.5">
+                        <div class="step-dot h-1.5 flex-1 rounded-full bg-yellow-comunidad transition-colors" data-dot="1"></div>
+                        <div class="step-dot h-1.5 flex-1 rounded-full bg-white/15 transition-colors" data-dot="2"></div>
+                        <div class="step-dot h-1.5 flex-1 rounded-full bg-white/15 transition-colors" data-dot="3"></div>
+                    </div>
+                </div>
+
+                <form id="form-comunidad" class="p-5 sm:p-6 md:p-8 pt-5">
+
+                    <!-- Guarda qué botón inicial se eligió: Sí = Solo Beneficios / No = Mercado Virtual -->
+                    <input type="hidden" name="beneficios" id="input-beneficios" value="">
+
+                    <!-- ===================== PASO 1: Datos básicos ===================== -->
                 <div class="step-panel active" data-step="1">
                     <div class="space-y-4">
                         <div class="space-y-1.5">
@@ -271,7 +299,8 @@
                         Enviar Solicitud
                     </button>
                 </div>
-            </form>
+                </form>
+            </div>
         </div>
     </div>
 
