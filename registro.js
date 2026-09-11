@@ -3,6 +3,35 @@ document.addEventListener('DOMContentLoaded', () => {
     const loader = document.getElementById('loader');
     const modalSuccess = document.getElementById('modal-success');
 
+    // ============ SELECTOR INICIAL: Solo Beneficios / Mercado Virtual ============
+    const selectorInicio = document.getElementById('selector-inicio');
+    const wizardBody = document.getElementById('wizard-body');
+    const inputBeneficios = document.getElementById('input-beneficios');
+    const btnSoloBeneficios = document.getElementById('btn-solo-beneficios');
+    const btnMercadoVirtual = document.getElementById('btn-mercado-virtual');
+    const btnVolverSelector = document.getElementById('btn-volver-selector');
+
+    function iniciarWizard(valorBeneficios) {
+        inputBeneficios.value = valorBeneficios;
+        selectorInicio.classList.add('hidden');
+        wizardBody.classList.remove('hidden');
+    }
+
+    btnSoloBeneficios.addEventListener('click', () => iniciarWizard('Sí'));
+    btnMercadoVirtual.addEventListener('click', () => iniciarWizard('No'));
+
+    btnVolverSelector.addEventListener('click', () => {
+        wizardBody.classList.add('hidden');
+        selectorInicio.classList.remove('hidden');
+        form.reset();
+        inputBeneficios.value = '';
+        form.querySelectorAll('.option-pill').forEach(pill => {
+            pill.classList.remove('border-yellow-comunidad', 'bg-yellow-comunidad/10');
+        });
+        goToStep(1);
+    });
+    // ============ FIN SELECTOR INICIAL ============
+
     // ============ WIZARD: navegación por pasos ============
     const TOTAL_STEPS = 3;
     const STEP_TITLES = {
@@ -86,7 +115,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // ============ FIN WIZARD ============
 
     // IMPORTANTE: Reemplazá esto con la URL que te da Google Apps Script al implementar
-    const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwGLTRGPpfXhvs5vFEMPiEYD3Ic5RFTNZ26tmktfm200EBGvEcRtJRMNTIOQ_wIG3WB/exec';
+    const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxi4G0r2_MmxjcyviGijAxHWw344jDQkVDbK1fveENkm44D2eYeI9lDeqbMoeyNq_dB/exec';
 
     // Envía los datos a Google Apps Script. Usamos fetch con no-cors (igual que
     // en sumatucomercio.js) en vez de sendBeacon: Apps Script responde con un
@@ -124,6 +153,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Preparamos los datos estructurados para Google Sheets
         const datos = {
+            beneficios: formData.get('beneficios'),
             nombreEmprendimiento: formData.get('nombreEmprendimiento'),
             nombreResponsable: formData.get('nombreResponsable'),
             whatsapp: formData.get('whatsapp'),
